@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using WEB.Models;
+@inject SignInManager<ApplicationUser> signInManager
+
+@if (signInManager.IsSignedIn(User))
+{
+    @await Component.InvokeAsync("Cart")
+    <div class="dropdown ml-4 nav-color">
+        <button class="dropdown-toggle btn btn-outline-dark nav-color" id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            <img img-action="GetAvatar"
+                 img-controller="Image"
+                 width="30" alt="User"
+                 class="rounded bg-light" />
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuButton">
+            <li class="dropdown-item-text">
+                <img img-action="GetAvatar"
+                     img-controller="Image"
+                     width="30" alt="User"
+                     class="rounded bg-light" />
+                @User.Identity.Name                
+            </li>
+            <li class="dropdown-divider"></li>
+            <a class="dropdown-item" asp-controller="Product"
+               asp-action="UserProducts">Мои товары</a>
+            <form asp-area="Identity"
+                  asp-page="/Account/Logout"
+                  asp-route-returnurl="@ViewContext.HttpContext.Request.Path">
+                <input type="submit"
+                       value="Log off"
+                       class="dropdown-item" />
+            </form>
+        </ul>
+    </div>
+}
+else
+{
+    <ul class="nav navbar-nav ms-auto">
+        <li>
+            <a class="nav-item nav-link"
+               asp-area="Identity"
+               asp-page="/Account/Login">
+                Войти
+            </a>
+        </li>
+        <li>
+            <a class="nav-item nav-link"
+               asp-area="Identity"
+               asp-page="/Account/Register">
+                Зарегистрироваться
+            </a>
+        </li>
+    </ul>
+}

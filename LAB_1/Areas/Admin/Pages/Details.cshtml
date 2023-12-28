@@ -1,0 +1,49 @@
+﻿@page
+@model WEB.Areas.Admin.Pages.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Good</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Good.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Good.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Good.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Good.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Good.Count)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Good.Count)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Good.Image)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Good.Image)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Good.Section)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Good.Section.Id)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Good?.Id">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

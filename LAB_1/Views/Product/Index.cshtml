@@ -1,0 +1,48 @@
+﻿@model ListViewModel<Good>
+
+@{
+    ViewData["Title"] = "Меню";
+    var categories = ViewData["Groups"] as IEnumerable<Section>;
+    int currentGroup = (int)ViewData["CurrentGroup"];
+    var text = currentGroup != 0
+    ? categories
+    .FirstOrDefault(g => g.Id == currentGroup)?
+    .Name
+    : "Все";
+}
+<div class="row">
+    <div class="col-2">
+        <div class="dropdown mt-2">
+            <a class="btn btn-secondary dropdown-toggle"
+               asp-action="Index" asp-controller="Product"
+               role="button"               
+               data-bs-toggle="dropdown"
+               aria-expanded="false">
+                @text
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item"
+                   asp-action="Index"
+                   asp-controller="Product">Все</a></li>
+                @foreach (var item in categories)
+                {
+                    <li><a class="dropdown-item"
+                       asp-action="Index"
+                       asp-controller="Product" asp-route-section="@item.Id"
+                       asp-route-pageNo="1">@item.Name</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-10">
+        <div class="card-deck">
+            @foreach (var item in Model)
+            {
+                <partial name="_ListItemPartial" model="@item" />
+            }
+        </div>
+        <pager page-current="@Model.CurrentPage" page-total="@Model.TotalPages"
+               action="Index"
+               controller="Product" group-id="@currentGroup"></pager>
+    </div>
+</div>
